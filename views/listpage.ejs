@@ -4,9 +4,9 @@
 <body>
 <% include ./header %>
 
-    <a class="btn" href="/additem">Add New Item</a>
+    <a class="btn purple" href="/additem">Add New Item</a>
 
-    <div class="card">
+    <div class="card purple">
 
     <table class="highlight">
         <tr>
@@ -15,7 +15,9 @@
             <th>Created By</th>
             <th>Added By</th>
             <th>Likes</th>
+            <th>Dislikes</th>
             <th>Actions</th>
+
         </tr>
 
         <% items.forEach(function(item){  %>
@@ -27,9 +29,13 @@
         <td> <%= item.URLofvideogame %></td>
         <td> <%= item.Createdby %></td>
         <td> <%= item.addedBy %></td>
-        <td> <%= item.Likes %></td>
-        <td> <%= item.Actions %></td>
-
+        <td> <%= item.likes %></td>
+        <td> <%= item.dislikes %></td>
+        <td>
+            <a href="/delete?gameName=<%=item.videoGameName%>"><i class="material-icons">delete</i></a>
+             <a href="/like?gameName=<%=item.videoGameName%>"><i class="material-icons">thumb_up</i></a>
+            <a href="/dislike?gameName=<%=item.videoGameName%>"><i class="material-icons">thumb_down</i></a>
+                </td>
         </tr>
 
 

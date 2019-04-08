@@ -80,6 +80,18 @@ function likeAndSort (itemName, itemValue) {
     return (allItems);
 }
 
+// dislike and sort based on name
+function dislikeAndSort (itemName, itemValue) {
+    var myItem = Item.find({[itemName]:itemValue});
+    if (myItem[0].dislikes == '' || myItem[0].dislikes == null)
+        myItem[0].dislikes = 1;
+    else
+        myItem[0].dislikes += 1;
+    Item.update(myItem);
+    console.log(myItem[0]);
+    var allItems = Item.chain().find().simplesort('dislikes').data().reverse();
+    return (allItems);
+}
 // ---------- do not change above unless you know what you are doing :) -----------
 // ---------- use the helper functions above as and when you need them ------------
 // ---------- your code starts below this comment ---------------------------------
@@ -140,3 +152,21 @@ app.post('/saveitem', function (request,response) {
 //    response.render('listpage',{ items:[] });
 //});
 
+app.get('/delete', function (request,response) {
+    var gameName = request.query.gameName;
+    var items = deleteAndSort('videoGameName',gameName);
+  //  var items = saveFormAndReturnAllItems(request.body);
+    response.render('listpage',{ items:items });
+});
+app.get('/like', function (request,response) {
+    var gameName = request.query.gameName;
+    var items = likeAndSort('videoGameName',gameName);
+  //  var items = saveFormAndReturnAllItems(request.body);
+    response.render('listpage',{ items:items });
+});
+app.get('/dislike', function (request,response) {
+    var gameName = request.query.gameName;
+    var items = dislikeAndSort('videoGameName',gameName);
+  //  var items = saveFormAndReturnAllItems(request.body);
+    response.render('listpage',{ items:items });
+});
